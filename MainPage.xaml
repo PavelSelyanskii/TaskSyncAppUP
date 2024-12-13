@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskSyncApp.MainPage"
+             Title="Task Manager">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Sync" Clicked="OnSyncClicked" />
+    </ContentPage.ToolbarItems>
+    <StackLayout Padding="10" Spacing="10">
+        <!-- Input fields -->
+        <Entry x:Name="TaskTitleEntry" Placeholder="Enter task title" />
+        <Entry x:Name="TaskDescriptionEntry" Placeholder="Enter task description" />
+        <DatePicker x:Name="TaskDueDatePicker" />
+        <Button Text="Add Task" Clicked="OnAddTaskClicked" />
+
+        <!-- Filter options -->
+        <StackLayout Orientation="Horizontal" Spacing="10">
+            <Picker x:Name="TaskStatusPicker" Title="Выберите статус">
+                <Picker.Items>
+                    <x:String>Новая</x:String>
+                    <x:String>В процессе</x:String>
+                    <x:String>Завершена</x:String>
+                </Picker.Items>
+            </Picker>
+            <DatePicker x:Name="FilterDatePicker" />
+            <Button Text="Apply Filter" Clicked="OnFilterClicked" />
+        </StackLayout>
+
+        <!-- Task list -->
+        <CollectionView x:Name="TaskCollectionView" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="5" Spacing="5">
+                        <Label Text="{Binding Title}" FontSize="Medium" FontAttributes="Bold" />
+                        <Label Text="{Binding Description}" FontSize="Small" />
+                        <Label Text="{Binding DueDate, StringFormat='Due: {0:d}'}" FontSize="Small" />
+                        <Label Text="{Binding Status}" FontSize="Small" TextColor="Gray" />
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Button Text="Edit" Clicked="OnEditTaskClicked" />
+                            <Button Text="Delete" Clicked="OnDeleteTaskClicked" />
+                        </StackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>
